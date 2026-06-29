@@ -54,7 +54,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add apps/smart_home/diagrams/**/*.png
           git commit -m "chore: update diagrams [skip ci]"
-          git push origin warmhouse
+          git push origin HEAD
         else
           echo "No changes to commit"
         fi
