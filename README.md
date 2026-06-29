@@ -59,8 +59,6 @@
 ![Диаграмма контекста в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/context/SmartHome_Context.png?raw=true)
 # Задание 2. Проектирование микросервисной архитектуры
 
-В этом задании вам нужно предоставить только диаграммы в модели C4. Мы не просим вас отдельно описывать получившиеся микросервисы и то, как вы определили взаимодействия между компонентами To-Be системы. Если вы правильно подготовите диаграммы C4, они и так это покажут.
-
 **Диаграмма контейнеров (Containers)**
 
 Добавьте диаграмму.
@@ -71,7 +69,7 @@
 
 **Диаграмма кода (Code)**
 
-Добавьте одну диаграмму или несколько.
+![Диаграмма кода в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/context/SmartHome_Code.png?raw=true)
 
 # Задание 3. Разработка ER-диаграммы
 

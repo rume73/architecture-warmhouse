@@ -1,0 +1,116 @@
+@startuml
+title Smart Home - Self-Service Microservices
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Package "User Service" {
+
+    class User {
+        -String id
+        -String email
+        -String password
+        -String name
+        -String role
+        --
+        +register()
+        +login()
+    }
+
+    class UserRepository {
+        -DB db
+        +save(user)
+        +findByEmail(email)
+    }
+
+    class UserService {
+        -UserRepository repo
+        +register(request)
+        +login(email, password)
+        +validateToken(token)
+    }
+
+    UserRepository --> User
+    UserService --> UserRepository
+}
+
+Package "Device Service" {
+
+    class Device {
+        -String id
+        -String name
+        -String type
+        -String location
+        -String userId
+        -String status
+        --
+        +register(userId)
+        +activate()
+    }
+
+    class DeviceRepository {
+        -DB db
+        +save(device)
+        +findByUserId(userId)
+    }
+
+    class UserServiceClient {
+        +validateToken(token)
+        +getUser(id)
+    }
+
+    class DeviceService {
+        -DeviceRepository repo
+        -UserServiceClient userClient
+        --
+        +registerDevice(userId, request)
+        +activateDevice(id)
+        +getUserDevices(userId)
+    }
+
+    DeviceRepository --> Device
+    DeviceService --> DeviceRepository
+    DeviceService --> UserServiceClient
+}
+
+Package "Metrics Service" {
+
+    class Metric {
+        -String id
+        -String deviceId
+        -String type
+        -double value
+        -Time timestamp
+        --
+        +save(deviceId, value)
+    }
+
+    class MetricRepository {
+        -DB db
+        +save(metric)
+        +findLatest(deviceId)
+    }
+
+    class ExternalAPIClient {
+        +fetchTemperature(location)
+    }
+
+    class MetricsService {
+        -MetricRepository repo
+        -ExternalAPIClient externalAPI
+        --
+        +saveMetric(deviceId, value)
+        +getLatestMetric(deviceId)
+        +fetchExternalTemperature(location)
+    }
+
+    MetricRepository --> Metric
+    MetricsService --> MetricRepository
+    MetricsService --> ExternalAPIClient
+}
+
+DeviceService ..> UserService
+DeviceService ..> MetricsService
+
+@enduml
