@@ -69,7 +69,7 @@
 
 **Диаграмма кода (Code)**
 
-![Диаграмма кода в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/context/SmartHome_Code.png?raw=true)
+![Диаграмма кода в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/code/SmartHome_Code.png?raw=true)
 
 # Задание 3. Разработка ER-диаграммы
 
