@@ -8,12 +8,19 @@ top to bottom direction
 !includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
 
 Person(user, "User", "A user of the smart home system")
-System(SmartHome, "FitLife System", "System supports heating control in the house")
-System_Ext(api, "Third-Party API", "External API for temperature data integration")
-System_Ext(sensors, "Sensor System", "")
+Person(admin, "Administrator", "Manages the platform")
+Person(support, "Support Engineer", "Installs sensors")
 
-Rel(user, SmartHome, "Uses the system")
-Rel(SmartHome, api, "Fetches fitness data")
-Rel(SmartHome, sensors, "Controls the sensor")
+System(SmartHome, "SmartHome System", "System supports heating control in the house")
+
+System_Ext(database, "PostgreSQL", "History of data from sensors")
+System_Ext(devices, "Sensor System", "Sensors")
+
+Rel(user, SmartHome, "Uses")
+Rel(support, SmartHome, "Configures")
+Rel(admin, SmartHome, "Administers")
+
+Rel(SmartHome, database, "Reads/Writers")
+Rel(SmartHome, devices, "Controls the sensor")
 
 @enduml
