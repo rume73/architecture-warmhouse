@@ -65,7 +65,7 @@
 
 **Диаграмма компонентов (Components)**
 
-![Диаграмма компонентов в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/component/SmartHome_Component.png?raw=true)
+![Диаграмма компонентов в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/component/SmartHome_Component_WebApp.png?raw=true)
 
 **Диаграмма кода (Code)**
 
