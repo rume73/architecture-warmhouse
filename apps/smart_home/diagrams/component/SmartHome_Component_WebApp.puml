@@ -1,0 +1,78 @@
+@startuml
+title Smart Home - All Services Component Diagram (C4 Level 3)
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(UserService, "User Service") {
+  Component(AuthController, "AuthController", "FastAPI", "Register\nLogin\nValidate token")
+  Component(UserController, "UserController", "FastAPI", "Get user\nUpdate profile\nDelete user")
+  Component(UserServiceLayer, "User Service Layer", "Python", "Business logic\nPassword hashing\nJWT generation")
+  Component(UserRepository, "User Repository", "SQLAlchemy", "CRUD operations\nFind by email")
+  Component(JWTService, "JWT Service", "Python", "Generate token\nValidate token\nExtract user")
+}
+
+Container_Boundary(DeviceService, "Device Service") {
+  Component(DeviceController, "DeviceController", "FastAPI", "Register device\nGet devices\nUpdate device\nDelete device")
+  Component(ScenarioController, "ScenarioController", "FastAPI", "Create scenario\nExecute scenario\nEnable/Disable")
+  Component(DeviceServiceLayer, "Device Service Layer", "Python", "Device logic\nStatus management\nValidation")
+  Component(AutomationServiceLayer, "Automation Service Layer", "Python", "Scenario engine\nRule execution\nEvent processing")
+  Component(DeviceRepository, "Device Repository", "SQLAlchemy", "Device storage\nSensor storage")
+  Component(ScenarioRepository, "Scenario Repository", "SQLAlchemy", "Scenario storage\nRule storage")
+  Component(UserClient, "User Service Client", "httpx", "Validate user\nGet user info")
+  Component(MetricsClient, "Metrics Service Client", "httpx", "Send metrics\nSend events")
+}
+
+Container_Boundary(MetricsService, "Metrics Service") {
+  Component(MetricsController, "MetricsController", "FastAPI", "Save metric\nGet latest\nGet history")
+  Component(WeatherController, "WeatherController", "FastAPI", "Get weather\nExternal API")
+  Component(MetricsServiceLayer, "Metrics Service Layer", "Python", "Business logic\nData aggregation")
+  Component(MetricsRepository, "Metrics Repository", "SQLAlchemy", "Save metrics\nQuery metrics")
+  Component(WeatherClient, "Weather Client", "httpx", "Fetch weather\nFetch forecast")
+  Component(DeviceClient, "Device Client", "httpx", "Get devices\nGet device info")
+}
+
+
+System_Ext(UserDB, "User DB", "PostgreSQL")
+System_Ext(DeviceDB, "Device DB", "PostgreSQL")
+System_Ext(MetricsDB, "Metrics DB", "PostgreSQL")
+System_Ext(WeatherAPI, "Weather API", "External")
+System_Ext(IoTDevices, "IoT Devices")
+
+Rel(AuthController, UserServiceLayer, "Calls")
+Rel(UserController, UserServiceLayer, "Calls")
+Rel(UserServiceLayer, UserRepository, "Reads/Writes")
+Rel(UserServiceLayer, JWTService, "Uses")
+Rel(UserRepository, UserDB, "SQL")
+
+Rel(DeviceController, DeviceServiceLayer, "Calls")
+Rel(DeviceController, AutomationServiceLayer, "Calls")
+Rel(ScenarioController, AutomationServiceLayer, "Calls")
+
+Rel(DeviceServiceLayer, DeviceRepository, "Reads/Writes")
+Rel(AutomationServiceLayer, ScenarioRepository, "Reads/Writes")
+Rel(AutomationServiceLayer, DeviceServiceLayer, "Executes")
+
+Rel(DeviceServiceLayer, UserClient, "Validates")
+Rel(DeviceServiceLayer, MetricsClient, "Sends")
+
+Rel(DeviceRepository, DeviceDB, "SQL")
+Rel(ScenarioRepository, DeviceDB, "SQL")
+
+Rel(MetricsController, MetricsServiceLayer, "Calls")
+Rel(WeatherController, MetricsServiceLayer, "Calls")
+
+Rel(MetricsServiceLayer, MetricsRepository, "Reads/Writes")
+Rel(MetricsServiceLayer, WeatherClient, "Fetches")
+Rel(MetricsServiceLayer, DeviceClient, "Gets")
+
+Rel(MetricsRepository, MetricsDB, "SQL")
+Rel(WeatherClient, WeatherAPI, "HTTP")
+Rel(DeviceClient, DeviceService, "HTTP")
+
+Rel(UserClient, UserService, "HTTP")
+Rel(MetricsClient, MetricsService, "HTTP")
+Rel(DeviceClient, DeviceService, "HTTP")
+
+@enduml

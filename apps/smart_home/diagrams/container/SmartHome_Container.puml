@@ -1,0 +1,55 @@
+@startuml
+title Smart Home - Container Diagram (C4 Level 2)
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+
+Person(user, "User", "Homeowner\nManages devices\nViews metrics")
+Person(admin, "Administrator", "Company employee\nManages system\nSupports users")
+
+
+System_Boundary(smartHome, "Smart Home System") {
+
+  Container(WebApp, "Web Application", "React, TypeScript", "User interface\nDevice management\nMetrics viewing")
+
+  Container(MobileApp, "Mobile Application", "Kotlin, Swift", "Mobile interface\nPhone control\nPush notifications")
+
+  Container(UserService, "User Service", "Python, FastAPI", "User registration\nAuthentication\nProfile management")
+
+  Container(DeviceService, "Device Service", "Python, FastAPI", "Device registration\nSensor management\nDevice activation")
+
+  Container(MetricsService, "Metrics Service", "Python, FastAPI", "Metrics collection\nData storage\nExternal API integration")
+
+  Container(UserDB, "User Database", "PostgreSQL")
+  Container(DeviceDB, "Device Database", "PostgreSQL")
+  Container(MetricsDB, "Metrics Database", "PostgreSQL")
+}
+
+System_Ext(weatherAPI, "Weather API", "External weather API\nTemperature by location")
+System_Ext(iotDevices, "IoT Devices", "Smart sensors\nHeating relays\nPartner devices")
+
+Rel(user, WebApp, "Uses")
+Rel(user, MobileApp, "Uses")
+Rel(admin, WebApp, "Administers")
+
+Rel(WebApp, UserService, "Registration/Login")
+Rel(WebApp, DeviceService, "Device management")
+Rel(WebApp, MetricsService, "View metrics")
+
+Rel(MobileApp, UserService, "Registration/Login")
+Rel(MobileApp, DeviceService, "Device management")
+Rel(MobileApp, MetricsService, "View metrics")
+
+Rel(UserService, UserDB, "Reads/Writes")
+Rel(DeviceService, DeviceDB, "Reads/Writes")
+Rel(MetricsService, MetricsDB, "Reads/Writes")
+
+Rel(DeviceService, UserService, "Validates user")
+Rel(DeviceService, MetricsService, "Sends metrics")
+Rel(MetricsService, DeviceService, "Gets devices")
+Rel(MetricsService, weatherAPI, "Fetches weather")
+Rel(DeviceService, iotDevices, "Controls sensors")
+
+@enduml

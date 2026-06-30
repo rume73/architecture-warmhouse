@@ -44,8 +44,8 @@ jobs:
       run: |
         java -jar plantuml.jar -tpng apps/smart_home/diagrams/context/*.puml || true
         java -jar plantuml.jar -tpng apps/smart_home/diagrams/code/*.puml || true
-#        java -jar plantuml.jar -tpng apps/smart_home/diagrams/container/*.puml || true
-#        java -jar plantuml.jar -tpng apps/smart_home/diagrams/component/*.puml || true
+        java -jar plantuml.jar -tpng apps/smart_home/diagrams/container/*.puml || true
+        java -jar plantuml.jar -tpng apps/smart_home/diagrams/component/*.puml || true
 
     - name: Commit Diagrams
       run: |
