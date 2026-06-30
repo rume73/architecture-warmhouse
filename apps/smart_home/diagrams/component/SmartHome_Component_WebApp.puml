@@ -15,11 +15,9 @@ Container_Boundary(UserService, "User Service") {
 
 Container_Boundary(DeviceService, "Device Service") {
   Component(DeviceController, "DeviceController", "FastAPI", "Register device\nGet devices\nUpdate device\nDelete device")
-  Component(ScenarioController, "ScenarioController", "FastAPI", "Create scenario\nExecute scenario\nEnable/Disable")
   Component(DeviceServiceLayer, "Device Service Layer", "Python", "Device logic\nStatus management\nValidation")
   Component(AutomationServiceLayer, "Automation Service Layer", "Python", "Scenario engine\nRule execution\nEvent processing")
   Component(DeviceRepository, "Device Repository", "SQLAlchemy", "Device storage\nSensor storage")
-  Component(ScenarioRepository, "Scenario Repository", "SQLAlchemy", "Scenario storage\nRule storage")
   Component(UserClient, "User Service Client", "httpx", "Validate user\nGet user info")
   Component(MetricsClient, "Metrics Service Client", "httpx", "Send metrics\nSend events")
 }
@@ -48,17 +46,14 @@ Rel(UserRepository, UserDB, "SQL")
 
 Rel(DeviceController, DeviceServiceLayer, "Calls")
 Rel(DeviceController, AutomationServiceLayer, "Calls")
-Rel(ScenarioController, AutomationServiceLayer, "Calls")
 
 Rel(DeviceServiceLayer, DeviceRepository, "Reads/Writes")
-Rel(AutomationServiceLayer, ScenarioRepository, "Reads/Writes")
 Rel(AutomationServiceLayer, DeviceServiceLayer, "Executes")
 
 Rel(DeviceServiceLayer, UserClient, "Validates")
 Rel(DeviceServiceLayer, MetricsClient, "Sends")
 
 Rel(DeviceRepository, DeviceDB, "SQL")
-Rel(ScenarioRepository, DeviceDB, "SQL")
 
 Rel(MetricsController, MetricsServiceLayer, "Calls")
 Rel(WeatherController, MetricsServiceLayer, "Calls")
