@@ -61,11 +61,11 @@
 
 **Диаграмма контейнеров (Containers)**
 
-![Диаграмма контейнеров в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/code/SmartHome_Container.png?raw=true)
+![Диаграмма контейнеров в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/container/SmartHome_Container.png?raw=true)
 
 **Диаграмма компонентов (Components)**
 
-![Диаграмма компонентов в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/code/SmartHome_Component.png?raw=true)
+![Диаграмма компонентов в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/component/SmartHome_Component.png?raw=true)
 
 **Диаграмма кода (Code)**
 
