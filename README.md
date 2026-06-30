@@ -73,7 +73,7 @@
 
 # Задание 3. Разработка ER-диаграммы
 
-Добавьте сюда ER-диаграмму. Она должна отражать ключевые сущности системы, их атрибуты и тип связей между ними.
+![ER-диаграмма в модели С4](https://github.com/rume73/architecture-warmhouse/blob/warmhouse/apps/smart_home/diagrams/database/SmartHome_ER.png?raw=true)
 
 # Задание 4. Создание и документирование API
 
