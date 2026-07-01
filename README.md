@@ -83,7 +83,11 @@
 
 ### 2. Документация API
 
-Здесь приложите ссылки на документацию API для микросервисов, которые вы спроектировали в первой части проектной работы. Для документирования используйте Swagger/OpenAPI или AsyncAPI.
+Реализованные микросервисы через FastAPI
+Получение температуры [http://localhost:8081/docs](http://localhost:8081/docs)
+
+Проектируемые миркросервисы в swagger: [https://editor.swagger.io/](https://editor.swagger.io/)
+- Скопируй содержимое [openapi.yaml](docs/openapi.yaml)*
 
 # Задание 5. Работа с docker и docker-compose
 
