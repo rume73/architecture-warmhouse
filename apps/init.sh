@@ -5,7 +5,7 @@ set -e
 
 echo "Starting the Smart Home Sensor API..."
 echo "Building and starting containers..."
-docker-compose up --build -d
+docker compose up --build -d
 
 echo "Waiting for services to be ready..."
 # Wait for PostgreSQL to be ready
@@ -22,6 +22,15 @@ done
 if ! docker exec smarthome-postgres pg_isready -U postgres > /dev/null 2>&1; then
   echo "Error: PostgreSQL did not start within the expected time."
   exit 1
+fi
+
+# Добавил создание таблицы через ИИ
+# Execute init.sql
+if [ -f "./smart_home/init.sql" ]; then
+    docker exec -i smarthome-postgres psql -U postgres -d smarthome < ./smart_home/init.sql
+    echo "✅ init.sql executed successfully!"
+else
+    echo "⚠️ File ./smart_home/init.sql not found!"
 fi
 
 echo "All services are up and running!"

@@ -1,0 +1,4 @@
+mkdocs
+mkdocs-plantuml
+mkdocs_puml
+plantuml-markdown

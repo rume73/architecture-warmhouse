@@ -1,0 +1,26 @@
+# Там где АПИ пока под вопросом, то ли это температура с датчика или еще доп апи по температуре погоды например
+
+@startuml
+title SmartHome Context Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(user, "User", "A user of the smart home system")
+Person(admin, "Administrator", "Manages the platform")
+Person(support, "Support Engineer", "Installs sensors")
+
+System(SmartHome, "SmartHome System", "System supports heating control in the house")
+
+System_Ext(database, "PostgreSQL", "History of data from sensors")
+System_Ext(devices, "Sensor System", "Sensors")
+
+Rel(user, SmartHome, "Uses")
+Rel(support, SmartHome, "Configures")
+Rel(admin, SmartHome, "Administers")
+
+Rel(SmartHome, database, "Reads/Writers")
+Rel(SmartHome, devices, "Controls the sensor")
+
+@enduml
